@@ -3,7 +3,7 @@ import userEvent from '@testing-library/user-event'
 
 import App from '../App.tsx';
 import { Provider } from 'react-redux'
-import store from '../store'
+import store from '../app/store.ts'
 
 describe('App', () => {
   test('render app header', () => {
@@ -104,7 +104,7 @@ describe('App', () => {
         await userEvent.click(resetButton);
         // decrement the value by 1
         const minusButton = screen.getByText(/Minus/i);
-        screen.debug();
+        //screen.debug();
         await userEvent.click(minusButton);
         const currentValue = screen.getByText(/-1/i);
         expect(currentValue).toBeDefined();

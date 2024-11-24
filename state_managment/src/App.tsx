@@ -1,10 +1,12 @@
 import { useCallback } from 'react'
 import './App.css'
-import { useAppDispatch, useAppSelector } from './hooks';
-import { decrement, increment, reset } from './reducers/counterReducer';
+import { useAppDispatch, useAppSelector } from './app/hooks';
+import { decrement, increment, reset } from './features/counterReducer';
+import {useGetPostsQuery} from './features/posts/postsApi';
 
 const App= ()=> {
   const value = useAppSelector((state) => state.counter.value);
+ const { data , isFetching } = useGetPostsQuery();
   const dispatch = useAppDispatch();
 
   // event handlers
@@ -23,6 +25,14 @@ const App= ()=> {
 
   return (
     <>
+      <div>
+        <p>Number of posts fetched: {data?.posts.length}</p>
+        <ul>
+          {data?.posts.map((post) => (
+            <li key={post.id}>{post.title}</li>
+          ))} 
+        </ul>
+        </div>
       <h1>React state management options</h1>
       <h3>Current value:</h3>
       <p>{value}</p>
