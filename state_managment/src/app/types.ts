@@ -12,7 +12,7 @@ interface Post {
     userId: number;
   }
   
-  export interface PostResponse {
+  export interface PostsResponse {
     posts: Post[];
     total: number;
     skip: number;

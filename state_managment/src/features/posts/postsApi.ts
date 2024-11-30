@@ -1,6 +1,6 @@
 //import { createSlice } from '@reduxjs/toolkit'
 //import { PayloadAction } from '@reduxjs/toolkit';
-import { PostResponse } from '../../app/types';
+import { PostsResponse } from '../../app/types';
 //import postService from '../../services/posts';
 import {createApi, fetchBaseQuery} from '@reduxjs/toolkit/query/react';
 const baseUrl = import.meta.env.VITE_BASE_URL;
@@ -10,7 +10,7 @@ export const postsApiSlice = createApi({
   reducerPath: 'posts',
   baseQuery: fetchBaseQuery({ baseUrl: baseUrl }),
   endpoints: (builder) => ({
-    getPosts: builder.query<PostResponse, number|void>({
+    getPosts: builder.query<PostsResponse, number|void>({
       query: (limit=30, order='asc') => `/posts?limit=${limit}&order=${order}`,
       // TODO: use queryFn to fetch data from the server instead of query
     }),
