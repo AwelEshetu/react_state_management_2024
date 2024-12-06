@@ -1,5 +1,5 @@
 export interface CounterState { value: number }
-interface Post {
+export interface PostItem {
     id: number;
     title: string;
     body: string;
@@ -13,7 +13,7 @@ interface Post {
   }
   
   export interface PostsResponse {
-    posts: Post[];
+    posts: PostItem[];
     total: number;
     skip: number;
     limit: number;

@@ -19,32 +19,4 @@ export const postsApiSlice = createApi({
 
 //automatically generated hooks based on the defined endpoints and getPosts query
 export const { useGetPostsQuery } = postsApiSlice;
-// const initialState: PostResponse = {
-//     posts: [],
-//     total: 0,
-//     skip: 0,
-//     limit: 30
-//   }
 
-// export const postSlice = createSlice({
-//     name: 'posts',
-//     initialState,
-//     reducers: {
-//       setPosts: (state: PostResponse, action: PayloadAction<PostResponse>) => {
-//         return action.payload;
-//       },
-//       // add more reducers...
-//     }
-//   })
-  
-//   export const { setPosts } = postSlice.actions;
-
-//   // initialize posts with data from server
-//   export const initializePosts = (): AppThunk => {
-//     return async dispatch => {
-//         const posts: PostResponse = await postService.getAllPosts();
-//         dispatch(setPosts(posts));
-//     };
-// };
-  
-//   export default postSlice.reducer;

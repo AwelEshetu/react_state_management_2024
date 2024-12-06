@@ -25,7 +25,7 @@ export const counterSlice = createSlice({
   })
 
   // check what is inside the counterSlice
-console.log(counterSlice);
+//console.log(counterSlice);
 // extract actions from the reducer
 export const { increment, decrement, reset } = counterSlice.actions;
 

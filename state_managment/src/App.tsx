@@ -1,50 +1,32 @@
-import { useCallback } from 'react'
+import { Fragment } from 'react'
 import './App.css'
-import { useAppDispatch, useAppSelector } from './app/hooks';
-import { decrement, increment, reset } from './features/counterReducer';
 import {useGetPostsQuery} from './features/posts/postsApi';
+import Post from './components/Post';
+import Link from '@mui/material/Link';
+import List from '@mui/material/List';
+import { Typography } from '@mui/material';
+
 
 const App= ()=> {
-  const value = useAppSelector((state) => state.counter.value);
  const { data , isFetching } = useGetPostsQuery();
-  const dispatch = useAppDispatch();
 
-  // event handlers
-  const handlePlus = useCallback(
-    () => { 
-      dispatch(increment());  
-  }, [dispatch, increment]);
-  
-  const handleMinus = useCallback(() => { 
-      dispatch(decrement());
-  }, [dispatch, decrement]);
-
-  const handleReset = useCallback(() => {
-    dispatch(reset())
-  }, [dispatch, reset]);
+ //TODO: add loading spinner
+ console.log(isFetching);
 
   return (
     <>
       <div>
-        <p>Number of posts fetched: {data?.posts.length}</p>
-        <ul>
+        <h4>React state management showcase using RTK</h4>
+        <Typography variant="body2">Api used : <Link href="https://dummyjson.com/docs/posts" target="_blank" rel="noreferrer">Dummy json posts</Link></Typography>
+        <Typography variant="body2">Number of posts fetched: {data?.posts.length}</Typography>
+        <List>
           {data?.posts.map((post) => (
-            <li key={post.id}>{post.title}</li>
+            <Fragment key={post.id}>
+              <Post post={post} />
+            </Fragment>
           ))} 
-        </ul>
-        </div>
-      <h1>React state management options</h1>
-      <h3>Current value:</h3>
-      <p>{value}</p>
-      <div className="card">
-        <button onClick={handlePlus}>
-          Plus
-        </button>
-        <button onClick={handleMinus}>
-          Minus
-        </button>
-        <button onClick={handleReset}>Reset</button>
-        </div>
+        </List>
+      </div>
     </>
   )
 }
