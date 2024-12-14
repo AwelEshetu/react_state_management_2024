@@ -1,6 +1,10 @@
 import { screen, render } from '@testing-library/react';
 import Post from '../components/Post';
+import { Provider } from 'react-redux'
+import store from '../app/store.ts'
+import type { ReactNode } from 'react';
 
+const wrapper = (props: { children: ReactNode }) => ( <Provider store={store}>{props.children}</Provider> );
 const mockPost = {
     id: 1,
     title: "His mother had always taught him",
@@ -16,7 +20,7 @@ const mockPost = {
 
 describe('Post', () => {
     beforeEach(() => {
-        render(<Post post={mockPost} />);
+        render(<Post post={mockPost} />, {wrapper});
     });
     it('renders post details correctly', () => {
         const title = screen.getByText("His mother had always taught him");

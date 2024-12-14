@@ -1,4 +1,4 @@
-import React, { memo } from 'react'
+import React, { memo, useCallback } from 'react'
 import {PostItem} from '../app/types'
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
@@ -7,12 +7,22 @@ import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
 import ThumbDownOffAltIcon from '@mui/icons-material/ThumbDownOffAlt';
 import ThumbUpOffAltIcon from '@mui/icons-material/ThumbUpOffAlt';
-import { Box, Chip, Container } from '@mui/material';
-import { postsApiSlice } from '../features/posts/postsApi';
+import { Box, Chip } from '@mui/material';
+import { useUpdatePostMutation } from '../features/posts/postsApi';
 interface PostProps {
   post: PostItem;
 }
 const Post: React.FC<PostProps> = ({ post }) => {
+    const [updatePost] = useUpdatePostMutation();
+
+    const handleLike = useCallback((post: PostItem) => {
+        updatePost({ ...post, reactions: { ...post.reactions, likes: post.reactions.likes + 1 } });
+      }, [updatePost]);
+    
+      const handleDislike = useCallback((post: PostItem) => {
+        updatePost({ ...post, reactions: { ...post.reactions, dislikes: post.reactions.dislikes + 1 } });
+      }, [updatePost]);
+
     return (
         <Card sx={{ maxWidth: 750, border: '1px dashed', mb:1}}>
             <CardContent>
@@ -21,18 +31,22 @@ const Post: React.FC<PostProps> = ({ post }) => {
                     {post.body}
                 </Typography>
             </CardContent>
-            <CardActions>
-                <IconButton aria-label="likes" color="primary">
-                    <ThumbUpOffAltIcon/> <span style={{fontSize:"small"}}>{post.reactions.likes}</span>
-                </IconButton>
-                <IconButton aria-label="dislikes" color="warning">
-                    <ThumbDownOffAltIcon/><span style={{fontSize:"small"}}>{post.reactions.dislikes}</span>
-                </IconButton>
-                {
-                    post.tags.map((tag, index) => (
-                    <Chip key={index} size="small" variant="outlined" label={tag} style={{fontSize:"small"}}/>
-                    ))
-                }
+            <CardActions sx={{display:"flex", justifyContent: "space-between"}}>
+                <Box sx={{justifyContent: "flex-start"}}>
+                    <IconButton aria-label="likes" color="primary" onClick={()=> handleLike(post)}>
+                        <ThumbUpOffAltIcon/> <span style={{fontSize:"small"}}>{post.reactions.likes}</span>
+                    </IconButton>
+                    <IconButton aria-label="dislikes" color="warning" onClick={()=> handleDislike(post)}>
+                        <ThumbDownOffAltIcon/><span style={{fontSize:"small"}}>{post.reactions.dislikes}</span>
+                    </IconButton>
+                </Box>
+                <Box sx={{justifyContent: "flex-end"}}>
+                    {
+                        post.tags.map((tag, index) => (
+                        <Chip key={index} size="small" variant="outlined" label={tag} style={{fontSize:"small"}}/>
+                        ))
+                    }
+                </Box>
             </CardActions>
         </Card>
     )
