@@ -1,4 +1,4 @@
-import React, { memo, useCallback } from 'react'
+import React, { memo } from 'react'
 import {PostItem} from '../app/types'
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
@@ -8,21 +8,13 @@ import Typography from '@mui/material/Typography';
 import ThumbDownOffAltIcon from '@mui/icons-material/ThumbDownOffAlt';
 import ThumbUpOffAltIcon from '@mui/icons-material/ThumbUpOffAlt';
 import { Box, Chip } from '@mui/material';
-import { useUpdatePostMutation } from '../features/posts/postsApi';
 interface PostProps {
   post: PostItem;
+  handleLike: (post: PostItem) => void;
+  handleDislike: (post: PostItem) => void;
 }
-const Post: React.FC<PostProps> = ({ post }) => {
-    const [updatePost] = useUpdatePostMutation();
-
-    const handleLike = useCallback((post: PostItem) => {
-        updatePost({ ...post, reactions: { ...post.reactions, likes: post.reactions.likes + 1 } });
-      }, [updatePost]);
-    
-      const handleDislike = useCallback((post: PostItem) => {
-        updatePost({ ...post, reactions: { ...post.reactions, dislikes: post.reactions.dislikes + 1 } });
-      }, [updatePost]);
-
+const Post: React.FC<PostProps> = ({ post, handleDislike, handleLike }) => {
+  
     return (
         <Card sx={{ maxWidth: 750, border: '1px dashed', mb:1}}>
             <CardContent>

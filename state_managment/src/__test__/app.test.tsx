@@ -2,7 +2,7 @@ import { screen, render} from '@testing-library/react';
 import App from '../App.tsx';
 import { Provider } from 'react-redux'
 import store from '../app/store.ts'
-import type { ReactNode } from 'react';
+import { type ReactNode } from 'react';
 
 const wrapper = (props: { children: ReactNode }) => ( <Provider store={store}>{props.children}</Provider> );
 
@@ -27,6 +27,5 @@ describe('App', () => {
         const circularProgress = screen.getByRole('progressbar');
         expect(circularProgress).toBeDefined();
     });
-    
 
 });

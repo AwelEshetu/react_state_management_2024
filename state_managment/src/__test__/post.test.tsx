@@ -2,7 +2,8 @@ import { screen, render } from '@testing-library/react';
 import Post from '../components/Post';
 import { Provider } from 'react-redux'
 import store from '../app/store.ts'
-import type { ReactNode } from 'react';
+import { type ReactNode } from 'react';
+import user from '@testing-library/user-event';
 
 const wrapper = (props: { children: ReactNode }) => ( <Provider store={store}>{props.children}</Provider> );
 const mockPost = {
@@ -19,10 +20,11 @@ const mockPost = {
 };
 
 describe('Post', () => {
-    beforeEach(() => {
-        render(<Post post={mockPost} />, {wrapper});
-    });
+    
     it('renders post details correctly', () => {
+        const dislikeHandler = vi.fn();
+        const likeHandler = vi.fn();
+        render(<Post post={mockPost} handleLike={likeHandler} handleDislike={dislikeHandler} />, {wrapper});
         const title = screen.getByText("His mother had always taught him");
         const body = screen.getByText("His mother had always taught him not to ever think of himself as better than others. He'd tried to live by this motto.");
         const likes = screen.getByText("192");
@@ -32,4 +34,17 @@ describe('Post', () => {
         expect(likes).toBeDefined();
         expect(dislikes).toBeDefined();
     });
+
+    it('when buttons clicked', async () => {
+        user.setup();
+        const dislikeHandler = vi.fn();
+        const likeHandler = vi.fn();
+        render(<Post post={mockPost} handleLike={likeHandler} handleDislike={dislikeHandler}/>, {wrapper});
+        const likeButton = screen.getAllByRole("button", {hidden: true})[0];
+        const dislikeButton = screen.getAllByRole("button", {hidden: true})[1];
+        await user.click(dislikeButton);
+        await user.click(likeButton);
+        expect(dislikeHandler).toHaveBeenCalledTimes(1);
+        expect(likeHandler).toHaveBeenCalledTimes(1);
+    })
 });
