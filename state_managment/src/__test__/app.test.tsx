@@ -1,4 +1,4 @@
-import { screen, render} from '@testing-library/react';
+import { screen, render } from '@testing-library/react';
 import App from '../App.tsx';
 import { Provider } from 'react-redux'
 import store from '../app/store.ts'

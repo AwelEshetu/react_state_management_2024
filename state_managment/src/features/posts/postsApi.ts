@@ -59,8 +59,6 @@ export const postsApiSlice = createApi({
     }),
   }), 
 });
-console.log('post reducerPath', postsApiSlice.reducerPath);
-console.log('post reducer', postsApiSlice.reducer);
+
 //automatically generated hooks based on the defined endpoints and getPosts query
 export const { useGetPostsQuery, useAddPostMutation, useDeletePostMutation, useUpdatePostMutation, endpoints } = postsApiSlice;
-
