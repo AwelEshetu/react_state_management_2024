@@ -22,6 +22,10 @@ export const postsApiSlice = createApi({
       // TODO: use queryFn to fetch data from the server instead of query
       providesTags: ['Posts'], // define a tag for calling this endpoint
     }),
+    getPost: builder.query<PostItem, number>({
+      query: (postId: number) => `/posts/${postId}`,
+      providesTags: ['Posts'], // define a tag for calling this endpoint
+    }),
     addPost: builder.mutation({
       query: (newPost: PostItem) => ({
         url: '/posts',
@@ -48,7 +52,7 @@ export const postsApiSlice = createApi({
         headers: headers,
         body: JSON.stringify(post),
       }),
-      invalidatesTags: ['Posts'], // invalidate the Posts tag to refetch the data automatically
+      invalidatesTags: ['Posts'],  // invalidate the Posts tag to refetch the data automatically
     }),
     deletePost: builder.mutation({
       query: (postId: number) => ({
@@ -61,4 +65,4 @@ export const postsApiSlice = createApi({
 });
 
 //automatically generated hooks based on the defined endpoints and getPosts query
-export const { useGetPostsQuery, useAddPostMutation, useDeletePostMutation, useUpdatePostMutation, endpoints } = postsApiSlice;
+export const { useGetPostsQuery, useGetPostQuery, useAddPostMutation, useDeletePostMutation, useUpdatePostMutation, endpoints } = postsApiSlice;

@@ -7,7 +7,6 @@ import { CircularProgress, Typography } from '@mui/material';
 const App= ()=> {
  const { data: posts , isFetching } = useGetPostsQuery({limit: 50});
   
-
   return (
     <>
       {isFetching && <CircularProgress />}

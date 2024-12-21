@@ -1,7 +1,7 @@
 import { screen, render } from '@testing-library/react';
-import App from '../App.tsx';
+import App from '../../App.tsx';
 import { Provider } from 'react-redux'
-import store from '../app/store.ts'
+import store from '../../app/store.ts'
 import { type ReactNode } from 'react';
 
 const wrapper = (props: { children: ReactNode }) => ( <Provider store={store}>{props.children}</Provider> );

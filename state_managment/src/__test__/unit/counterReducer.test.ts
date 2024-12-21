@@ -1,4 +1,4 @@
-import reducer , {increment, decrement, reset} from '../features/counterReducer';
+import reducer , {increment, decrement, reset} from '../../features/counterReducer';
 
 describe('counter reducer', () => {
     it('should return the initial state', () => {

@@ -6,13 +6,19 @@ import { beforeAll, afterEach, afterAll } from 'vitest'
 import { server } from './src/mocks/server'
  
 // establish API mocking before all tests
-beforeAll(() => server.listen())
+beforeAll(() =>{
+  server.listen();
+  console.log('server listening');
+} )
 
-// reset any request handlers that we may add during the tests, so they don't affect other tests
+// clean up once the tests are done
 afterEach(() => {
-  server.resetHandlers(); 
+  server.resetHandlers();
   cleanup();
 })
 
 // clean up once the tests are done
-afterAll(() => server.close())
+afterAll(() => {
+  server.close();
+  console.log('server closed');
+})

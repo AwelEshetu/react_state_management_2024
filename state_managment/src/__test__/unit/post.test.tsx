@@ -1,7 +1,7 @@
 import { screen, render } from '@testing-library/react';
-import Post from '../components/Post';
+import Post from '../../components/Post.tsx';
 import { Provider } from 'react-redux'
-import store from '../app/store.ts'
+import store from '../../app/store.ts'
 import { type ReactNode } from 'react';
 import user from '@testing-library/user-event';
 
