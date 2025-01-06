@@ -33,6 +33,7 @@ describe('Post', () => {
         expect(body).toBeDefined();
         expect(likes).toBeDefined();
         expect(dislikes).toBeDefined();
+        // screen.debug(likes);  // this will print the likes element in the console
     });
 
     it('when buttons clicked', async () => {

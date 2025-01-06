@@ -14,7 +14,7 @@ beforeAll(() =>{
 // clean up once the tests are done
 afterEach(() => {
   server.resetHandlers();
-  cleanup();
+  cleanup(); // cleans up after each test by resetting jsdom, which is simulating the browser.
 })
 
 // clean up once the tests are done

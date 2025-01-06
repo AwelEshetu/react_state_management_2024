@@ -1,7 +1,7 @@
 import { render, screen } from '@testing-library/react';
-import PostsList from '../../components/PostsList';
+import PostsList from '../../components/PostsList.tsx';
 import { Provider } from 'react-redux'
-import store from '../../app/store';
+import store from '../../app/store.ts';
 import type { ReactNode } from 'react';
 import { mockPosts } from '../../mocks/mockPosts.ts';
 import {logRoles} from '@testing-library/dom'
